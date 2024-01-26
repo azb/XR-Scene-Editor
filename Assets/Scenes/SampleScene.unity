@@ -1145,10 +1145,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090863378}
-  - component: {fileID: 2090863377}
   - component: {fileID: 2090863380}
   - component: {fileID: 2090863379}
   - component: {fileID: 2090863381}
+  - component: {fileID: 2090863377}
   - component: {fileID: 2090863382}
   m_Layer: 0
   m_Name: Synced Mesh
@@ -1270,6 +1270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 0}
+  shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &2141128430
 GameObject:
   m_ObjectHideFlags: 0

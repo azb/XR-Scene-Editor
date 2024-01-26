@@ -6,6 +6,7 @@ public class MaterialSync : MonoBehaviourPun
 {
     [SerializeField]
     MeshRenderer meshRenderer;
+    public Shader shader;
 
     private void Start()
     {
@@ -37,6 +38,11 @@ public class MaterialSync : MonoBehaviourPun
     {
         // Process the received texture data
         Texture2D receivedTexture = ByteArrayToTexture2D(receivedTextureData);
+
+        if (meshRenderer.material == null)
+        {
+            meshRenderer.material = new Material(shader);
+        }
 
         // Apply the received texture to the material
         meshRenderer.material.mainTexture = receivedTexture;
