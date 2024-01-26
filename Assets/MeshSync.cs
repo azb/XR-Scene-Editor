@@ -42,7 +42,11 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
-        photonView.RPC("UpdateMeshData", RpcTarget.Others, meshFilter.mesh.vertices, meshFilter.mesh.uv, meshFilter.mesh.triangles);
+        photonView.RPC("UpdateMeshData", RpcTarget.Others, 
+            meshFilter.mesh.vertices, 
+            meshFilter.mesh.uv, 
+            meshFilter.mesh.triangles
+            );
     }
 
     [PunRPC]
