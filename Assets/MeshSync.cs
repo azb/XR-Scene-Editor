@@ -53,6 +53,13 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         {
             meshFilter.mesh = new Mesh();
         }
+
+        Debug.Log("vertices.Length = " + vertices.Length);
+
+        for (int i = 0 ; i < vertices.Length ; i++)
+        {
+            Debug.Log("Adding vertex: "+ vertices[i]);
+        }
         // Update the mesh on other clients
         meshFilter.mesh.vertices = vertices;
         meshFilter.mesh.uv = uv;
