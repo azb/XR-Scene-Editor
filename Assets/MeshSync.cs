@@ -48,6 +48,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void UpdateMeshData(Vector3[] vertices, Vector2[] uv)
     {
+        Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
         {
             meshFilter.mesh = new Mesh();
