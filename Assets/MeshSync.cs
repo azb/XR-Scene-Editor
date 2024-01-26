@@ -42,11 +42,11 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
-        photonView.RPC("UpdateMeshData", RpcTarget.Others, meshFilter.mesh.vertices, meshFilter.mesh.uv);
+        photonView.RPC("UpdateMeshData", RpcTarget.Others, meshFilter.mesh.vertices, meshFilter.mesh.uv, meshFilter.mesh.triangles);
     }
 
     [PunRPC]
-    void UpdateMeshData(Vector3[] vertices, Vector2[] uv)
+    void UpdateMeshData(Vector3[] vertices, Vector2[] uv, int[] triangles)
     {
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
@@ -63,6 +63,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         // Update the mesh on other clients
         meshFilter.mesh.vertices = vertices;
         meshFilter.mesh.uv = uv;
+        meshFilter.mesh.triangles = triangles;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
