@@ -45,12 +45,13 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         photonView.RPC("UpdateMeshData", RpcTarget.Others, 
             meshFilter.mesh.vertices, 
             meshFilter.mesh.uv, 
-            meshFilter.mesh.triangles
+            meshFilter.mesh.triangles,
+            meshFilter.mesh.normals
             );
     }
 
     [PunRPC]
-    void UpdateMeshData(Vector3[] vertices, Vector2[] uv, int[] triangles)
+    void UpdateMeshData(Vector3[] vertices, Vector2[] uv, int[] triangles, Vector3[] normals)
     {
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
@@ -68,6 +69,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         meshFilter.mesh.vertices = vertices;
         meshFilter.mesh.uv = uv;
         meshFilter.mesh.triangles = triangles;
+        meshFilter.mesh.normals = normals;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
