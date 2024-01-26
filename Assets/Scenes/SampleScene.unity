@@ -684,7 +684,6 @@ GameObject:
   - component: {fileID: 723444961}
   - component: {fileID: 723444964}
   - component: {fileID: 723444963}
-  - component: {fileID: 723444962}
   m_Layer: 5
   m_Name: room status label
   m_TagString: Untagged
@@ -711,20 +710,6 @@ RectTransform:
   m_AnchoredPosition: {x: 20, y: -69}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &723444962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 723444960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 294cdd841cb49844d85640df07e2045a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  connectionStatusText: {fileID: 723444963}
-  roomStatusText: {fileID: 0}
 --- !u!114 &723444963
 MonoBehaviour:
   m_ObjectHideFlags: 0
