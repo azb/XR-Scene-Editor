@@ -22,15 +22,21 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void Update()
     {
-        if (photonView.IsMine)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            // Modify mesh data locally
-            // For example, you can deform the mesh based on user input
-            // You can modify vertices, UVs, etc.
-            // ...
+            if (meshFilter.mesh != null)
+            {
+                if (photonView.IsMine)
+                {
+                    // Modify mesh data locally
+                    // For example, you can deform the mesh based on user input
+                    // You can modify vertices, UVs, etc.
+                    // ...
 
-            // Call the method to send updates over the network
-            SendMeshData();
+                    // Call the method to send updates over the network
+                    SendMeshData();
+                }
+            }
         }
     }
 
@@ -42,6 +48,10 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
     [PunRPC]
     void UpdateMeshData(Vector3[] vertices, Vector2[] uv)
     {
+        if (meshFilter.mesh == null)
+        {
+            meshFilter.mesh = new Mesh();
+        }
         // Update the mesh on other clients
         meshFilter.mesh.vertices = vertices;
         meshFilter.mesh.uv = uv;
