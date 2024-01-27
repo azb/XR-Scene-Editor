@@ -111,6 +111,11 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         Debug.Log("meshFilter.mesh.normals.Length = " + meshFilter.mesh.normals.Length);
     }
 
+    Vector3[] vertexBuffer;
+    Vector2[] uvBuffer;
+    int[] triangleBuffer;
+    Vector3[] normalBuffer;
+
     [PunRPC]
     void UpdateMeshData(
         Vector3 vertex,
@@ -138,21 +143,31 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             meshFilter.mesh.vertices = new Vector3[verticesLength];
             meshFilter.mesh.uv = new Vector2[verticesLength];
             meshFilter.mesh.normals = new Vector3[verticesLength];
+
+            vertexBuffer = new Vector3[verticesLength];
+            uvBuffer = new Vector2[verticesLength];
+            normalBuffer = new Vector3[verticesLength];
         }
 
         if (meshFilter.mesh.triangles == null || meshFilter.mesh.triangles.Length != trianglesLength)
         {
             Debug.Log("Creating new mesh triangles because current one is null");
             meshFilter.mesh.triangles = new int[trianglesLength];
+            triangleBuffer = new int[trianglesLength];
         }
 
         Debug.Log("verticesPosition = " + verticesPosition + " / "+ verticesLength + "\ntrianglesPosition = " + trianglesPosition + " / "+ trianglesLength);
 
         // Update the mesh on other clients
-        meshFilter.mesh.vertices[verticesPosition] = vertex;
-        meshFilter.mesh.uv[verticesPosition] = uv;
-        meshFilter.mesh.triangles[trianglesPosition] = triangle;
-        meshFilter.mesh.normals[verticesPosition] = normal;
+        vertexBuffer[verticesPosition] = vertex;
+        uvBuffer[verticesPosition] = uv;
+        triangleBuffer[trianglesPosition] = triangle;
+        normalBuffer[verticesPosition] = normal;
+
+        meshFilter.mesh.vertices = vertexBuffer;
+        meshFilter.mesh.uv = uvBuffer;
+        meshFilter.mesh.triangles = triangleBuffer;
+        meshFilter.mesh.normals = normalBuffer;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
