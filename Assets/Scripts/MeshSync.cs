@@ -70,49 +70,49 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
-        for (int i = 0; i < 3; i++)
+        if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
         {
-            if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
+            int verticesLength = meshFilter.mesh.vertices.Length;
+            int trianglesLength = meshFilter.mesh.triangles.Length;
+
+            if (verticesPosition < meshFilter.mesh.vertices.Length - 1)
             {
-                int verticesLength = meshFilter.mesh.vertices.Length;
-                int trianglesLength = meshFilter.mesh.triangles.Length;
-
-                if (verticesPosition < meshFilter.mesh.vertices.Length - 1)
-                {
-                    verticesPosition++;
-                }
-                else
-                {
-                    verticesPosition = 0;
-                }
-
-                if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
-                {
-                    trianglesPosition++;
-                }
-                else
-                {
-                    trianglesPosition = 0;
-                }
-
-                photonView.RPC("UpdateMeshData", RpcTarget.Others,
-                    meshFilter.mesh.vertices[verticesPosition],
-                    meshFilter.mesh.uv[verticesPosition],
-                    meshFilter.mesh.triangles[trianglesPosition],
-                    meshFilter.mesh.normals[verticesPosition],
-                    verticesPosition,
-                    trianglesPosition,
-                    verticesLength,
-                    trianglesLength
-                    );
-
+                verticesPosition++;
             }
-        }
+            else
+            {
+                //verticesPosition = 0;
+            }
 
-        Debug.Log("meshFilter.mesh.vertices.Length = " + meshFilter.mesh.vertices.Length);
-        Debug.Log("meshFilter.mesh.uv.Length = " + meshFilter.mesh.uv.Length);
-        Debug.Log("meshFilter.mesh.triangles.Length = " + meshFilter.mesh.triangles.Length);
-        Debug.Log("meshFilter.mesh.normals.Length = " + meshFilter.mesh.normals.Length);
+            if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
+            {
+                trianglesPosition++;
+            }
+            else
+            {
+                //trianglesPosition = 0;
+                if (trianglesPosition == meshFilter.mesh.triangles.Length)
+                {
+                    return;
+                }
+            }
+
+            photonView.RPC("UpdateMeshData", RpcTarget.Others,
+                meshFilter.mesh.vertices[verticesPosition],
+                meshFilter.mesh.uv[verticesPosition],
+                meshFilter.mesh.triangles[trianglesPosition],
+                meshFilter.mesh.normals[verticesPosition],
+                verticesPosition,
+                trianglesPosition,
+                verticesLength,
+                trianglesLength
+                );
+        }
+        /*
+    Debug.Log("meshFilter.mesh.vertices.Length = " + meshFilter.mesh.vertices.Length);
+    Debug.Log("meshFilter.mesh.uv.Length = " + meshFilter.mesh.uv.Length);
+    Debug.Log("meshFilter.mesh.triangles.Length = " + meshFilter.mesh.triangles.Length);
+    Debug.Log("meshFilter.mesh.normals.Length = " + meshFilter.mesh.normals.Length);*/
     }
 
     Vector3[] vertexBuffer;
