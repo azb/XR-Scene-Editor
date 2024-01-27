@@ -21,6 +21,8 @@ public class MaterialSync : MonoBehaviourPun
 
     private void Update()
     {
+        if (!photonView.IsMine)
+            return;
         if (meshRenderer != null
             && meshRenderer.sharedMaterial != null
             )
