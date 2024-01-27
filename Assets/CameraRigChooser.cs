@@ -7,6 +7,9 @@ public class CameraRigChooser : MonoBehaviour
     public GameObject PCCameraRig;
     public Canvas UI;
 
+    public Camera CenterEyeAnchor;
+    public Camera PCCamera;
+
     public enum Mode { VR, PC };
     public Mode mode = Mode.VR;
 
@@ -20,6 +23,11 @@ public class CameraRigChooser : MonoBehaviour
                 string activeDeviceName = XRSettings.loadedDeviceName;
                 Debug.Log("VR headset is connected: " + activeDeviceName);
                 mode = Mode.VR;
+
+                if (UI != null)
+                {
+                    UI.worldCamera = CenterEyeAnchor;
+                }
             }
             else
             {
@@ -28,6 +36,7 @@ public class CameraRigChooser : MonoBehaviour
                 if (UI != null)
                 {
                     UI.renderMode = RenderMode.ScreenSpaceOverlay;
+                    UI.worldCamera = PCCamera;
                 }
             }
         }
@@ -42,7 +51,7 @@ public class CameraRigChooser : MonoBehaviour
             }
         }
 
-        Debug.Log("Mode = "+mode);
+        Debug.Log("Mode = " + mode);
 
         VRCameraRig.SetActive(mode == Mode.VR);
         PCCameraRig.SetActive(mode == Mode.PC);
