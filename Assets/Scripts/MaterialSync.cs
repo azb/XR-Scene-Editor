@@ -8,6 +8,9 @@ public class MaterialSync : MonoBehaviourPun
     MeshRenderer meshRenderer;
     public Shader shader;
 
+    Material previousMaterial;
+    Texture previousTexture;
+
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
@@ -16,8 +19,11 @@ public class MaterialSync : MonoBehaviourPun
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (meshRenderer.material != previousMaterial
+            || meshRenderer.material.mainTexture != previousTexture)
         {
+            previousMaterial = meshRenderer.material;
+            previousTexture = meshRenderer.material.mainTexture;
             Debug.Log("Updating material");
             UpdateTimer();
         }
