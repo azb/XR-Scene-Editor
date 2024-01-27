@@ -18,25 +18,46 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             // Enable mesh modifications only for the owner
             meshFilter.mesh.MarkDynamic();
         }
-        Invoke("UpdateTimer", 1f);
+        //Invoke("UpdateTimer", 1f);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Updating mesh");
+            UpdateTimer();
+        }
     }
 
     void UpdateTimer()
     {
         if (meshFilter.mesh != null)
         {
-            if (photonView.IsMine)
-            {
-                // Modify mesh data locally
-                // For example, you can deform the mesh based on user input
-                // You can modify vertices, UVs, etc.
-                // ...
+            // Modify mesh data locally
+            // For example, you can deform the mesh based on user input
+            // You can modify vertices, UVs, etc.
+            // ...
 
-                // Call the method to send updates over the network
-                SendMeshData();
-            }
+            // Call the method to send updates over the network
+            SendMeshData();
         }
-        Invoke("UpdateTimer", 1f);
+        else
+        {
+            SendSetMeshToNull();
+        }
+        //Invoke("UpdateTimer", 1f);
+    }
+
+    void SendSetMeshToNull()
+    {
+        photonView.RPC("ReceiveSetMeshToNull", RpcTarget.Others);
+    }
+
+    [PunRPC]
+    void ReceiveSetMeshToNull()
+    {
+        meshFilter.mesh = null;
     }
 
     void SendMeshData()

@@ -11,26 +11,67 @@ public class MaterialSync : MonoBehaviourPun
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-        Invoke("UpdateTimer", 1f);
+        //Invoke("UpdateTimer", 1f);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Updating material");
+            UpdateTimer();
+        }
     }
 
     void UpdateTimer()
     {
         // Make sure to own the PhotonView for the object
-        if (photonView.IsMine)
+        //if (photonView.IsMine)
+        //{
+        if (meshRenderer.material != null)
         {
-            if (meshRenderer.material != null)
+            if (meshRenderer.material.mainTexture != null)
             {
-                if (meshRenderer.material.mainTexture != null)
-                {
-                    // Call the method to send the material's texture over the network
-                    Texture2D textureToSend = (Texture2D)meshRenderer.material.mainTexture;
-                    byte[] textureData = Texture2DToByteArray(textureToSend);
-                    SendMaterialTexture(textureData);
-                }
+                // Call the method to send the material's texture over the network
+                Texture2D textureToSend = (Texture2D)meshRenderer.material.mainTexture;
+                byte[] textureData = Texture2DToByteArray(textureToSend);
+                SendMaterialTexture(textureData);
+            }
+            else
+            {
+                SendSetTextureToNull();
+                //Debug.LogError("Can't sync because meshRenderer.material.mainTexture is null");
             }
         }
-        Invoke("UpdateTimer", 1f);
+        else
+        {
+            SendSetMaterialToNull();
+            //Debug.LogError("Can't sync because mesh is null");
+        }
+        //}
+        //Invoke("UpdateTimer", 1f);
+    }
+
+    void SendSetMaterialToNull()
+    {
+        photonView.RPC("ReceiveSetMaterialToNull", RpcTarget.Others);
+    }
+
+    [PunRPC]
+    void ReceiveSetMaterialToNull()
+    {
+        meshRenderer.material = null;
+    }
+
+    void SendSetTextureToNull()
+    {
+        photonView.RPC("ReceiveSetTextureToNull", RpcTarget.Others);
+    }
+
+    [PunRPC]
+    void ReceiveSetTextureToNull()
+    {
+        meshRenderer.material.mainTexture = null;
     }
 
     void SendMaterialTexture(byte[] textureData)

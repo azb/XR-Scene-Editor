@@ -41,6 +41,12 @@ MonoBehaviour:
   - RespawnSpaceship
   - UpdateMeshData
   - ReceiveMaterialTexture
+  - ReceiveSetMaterialToNull
+  - ReceiveSetTextureToNull
+  - ReceiveSetMeshToNull
+  - InstantiateWithNetworkedObjectRPC
+  - RestartSceneRPC
+  - SetSyncedVariableRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
