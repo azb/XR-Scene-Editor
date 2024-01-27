@@ -48,9 +48,9 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
                 // ...
 
                 // Call the method to send updates over the network
-                SendMeshData();
                 if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
                 {
+                    SendMeshData();
                     Invoke("UpdateTimer", .01f);
                     return;
                 }
@@ -77,7 +77,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
     int verticesPosition = 0;
     int trianglesPosition = 0;
 
-    int previousVertexCount; 
+    int previousVertexCount;
 
     void SendMeshData()
     {
