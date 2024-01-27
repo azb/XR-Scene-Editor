@@ -1,11 +1,14 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.UI;
 
 public class MeshSync : MonoBehaviourPun, IPunObservable
 {
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
+    public GameObject loadingPanel;
+    public Slider loadingSlider;
 
     void Start()
     {
@@ -138,6 +141,15 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         int trianglesLength
     )
     {
+        if (trianglesPosition < trianglesLength - 1)
+        {
+            loadingPanel.SetActive(true);
+            loadingSlider.value = trianglesPosition / trianglesLength;
+        }
+        else
+        {
+            loadingPanel.SetActive(false);
+        }
         if (photonView.IsMine)
             return;
         Debug.Log("PunRPC UpdateMeshData called");
