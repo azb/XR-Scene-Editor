@@ -18,16 +18,18 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             // Enable mesh modifications only for the owner
             meshFilter.mesh.MarkDynamic();
         }
-        //Invoke("UpdateTimer", 1f);
+        Invoke("UpdateTimer", 1f);
     }
 
     private void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Updating mesh");
             UpdateTimer();
         }
+        */
     }
 
     void UpdateTimer()
@@ -46,7 +48,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         {
             SendSetMeshToNull();
         }
-        //Invoke("UpdateTimer", 1f);
+        Invoke("UpdateTimer", 1f);
     }
 
     void SendSetMeshToNull()
@@ -60,18 +62,60 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         meshFilter.mesh = null;
     }
 
+    int verticesPosition = 0;
+    int trianglesPosition = 0;
+
     void SendMeshData()
     {
+        int verticesLength = meshFilter.mesh.vertices.Length;
+        int trianglesLength = meshFilter.mesh.vertices.Length;
+
+        if (verticesPosition < meshFilter.mesh.vertices.Length - 1)
+        {
+            verticesPosition++;
+        }
+        else
+        {
+            verticesPosition = 0;
+        }
+
+        if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
+        {
+            trianglesPosition++;
+        }
+        else
+        {
+            trianglesPosition = 0;
+        }
+
         photonView.RPC("UpdateMeshData", RpcTarget.Others,
-            meshFilter.mesh.vertices,
-            meshFilter.mesh.uv,
-            meshFilter.mesh.triangles,
-            meshFilter.mesh.normals
+            meshFilter.mesh.vertices[verticesPosition],
+            meshFilter.mesh.uv[verticesPosition],
+            meshFilter.mesh.triangles[trianglesPosition],
+            meshFilter.mesh.normals[verticesPosition],
+            verticesPosition,
+            trianglesPosition,
+            verticesLength,
+            trianglesLength
             );
+
+        Debug.Log("meshFilter.mesh.vertices.Length = "+ meshFilter.mesh.vertices.Length);
+        Debug.Log("meshFilter.mesh.uv.Length = " + meshFilter.mesh.uv.Length);
+        Debug.Log("meshFilter.mesh.triangles.Length = " + meshFilter.mesh.triangles.Length);
+        Debug.Log("meshFilter.mesh.normals.Length = " + meshFilter.mesh.normals.Length);
     }
 
     [PunRPC]
-    void UpdateMeshData(Vector3[] vertices, Vector2[] uv, int[] triangles, Vector3[] normals)
+    void UpdateMeshData(
+        Vector3 vertex, 
+        Vector2 uv, 
+        int triangle, 
+        Vector3 normal,
+        int verticesPosition,
+        int trianglesPosition,
+        int verticesLength,
+        int trianglesLength
+    )
     {
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
@@ -79,17 +123,25 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             meshFilter.mesh = new Mesh();
         }
 
-        Debug.Log("vertices.Length = " + vertices.Length);
-
-        for (int i = 0; i < vertices.Length; i++)
+        if (meshFilter.mesh.vertices == null || meshFilter.mesh.vertices.Length != verticesLength)
         {
-            Debug.Log("Adding vertex: " + vertices[i]);
+            meshFilter.mesh.vertices = new Vector3[verticesLength];
+            meshFilter.mesh.uv = new Vector2[verticesLength];
+            meshFilter.mesh.normals = new Vector3[verticesLength];
         }
+
+        if (meshFilter.mesh.triangles == null || meshFilter.mesh.triangles.Length != trianglesLength)
+        {
+            meshFilter.mesh.triangles = new int[trianglesLength];
+        }
+
+        Debug.Log("verticesPosition = " + verticesPosition + "\ntrianglesPosition = " + trianglesPosition);
+
         // Update the mesh on other clients
-        meshFilter.mesh.vertices = vertices;
-        meshFilter.mesh.uv = uv;
-        meshFilter.mesh.triangles = triangles;
-        meshFilter.mesh.normals = normals;
+        meshFilter.mesh.vertices[verticesPosition] = vertex;
+        meshFilter.mesh.uv[verticesPosition] = uv;
+        meshFilter.mesh.triangles[trianglesPosition] = triangle;
+        meshFilter.mesh.normals[verticesPosition] = normal;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
