@@ -21,13 +21,18 @@ public class MaterialSync : MonoBehaviourPun
 
     private void Update()
     {
-        if (meshRenderer != null && meshRenderer.sharedMaterial != previousMaterial
-            || meshRenderer.sharedMaterial.mainTexture != previousTexture)
+        if (meshRenderer != null
+            && meshRenderer.sharedMaterial != null
+            )
         {
-            previousMaterial = meshRenderer.sharedMaterial;
-            previousTexture = meshRenderer.sharedMaterial.mainTexture;
-            Debug.Log("Updating material");
-            UpdateTimer();
+            if (meshRenderer.sharedMaterial != previousMaterial
+                || meshRenderer.sharedMaterial.mainTexture != previousTexture)
+            {
+                previousMaterial = meshRenderer.sharedMaterial;
+                previousTexture = meshRenderer.sharedMaterial.mainTexture;
+                Debug.Log("Updating material");
+                UpdateTimer();
+            }
         }
     }
 
