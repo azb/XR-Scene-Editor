@@ -7,9 +7,6 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
     MeshFilter meshFilter;
     MeshRenderer meshRenderer;
 
-    private int chunkSize = 100; // Adjust the chunk size based on your needs
-    private int currentChunkIndex = 0;
-
     void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
@@ -21,7 +18,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             // Enable mesh modifications only for the owner
             meshFilter.mesh.MarkDynamic();
         }
-        InvokeRepeating("UpdateTimer", 5f, 0.1f); // Adjust the interval between chunks
+        //Invoke("UpdateTimer", 1f);
     }
 
     private void Update()
@@ -49,6 +46,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         {
             SendSetMeshToNull();
         }
+        //Invoke("UpdateTimer", 1f);
     }
 
     void SendSetMeshToNull()
@@ -64,40 +62,29 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
-        int totalChunks = Mathf.CeilToInt(meshFilter.mesh.vertices.Length / (float)chunkSize);
-
-        if (currentChunkIndex < totalChunks)
-        {
-            int startIndex = currentChunkIndex * chunkSize;
-            int endIndex = Mathf.Min((currentChunkIndex + 1) * chunkSize, meshFilter.mesh.vertices.Length);
-
-            Vector3[] chunkVertices = new Vector3[endIndex - startIndex];
-            Vector2[] chunkUVs = new Vector2[endIndex - startIndex];
-            int[] chunkTriangles = new int[meshFilter.mesh.triangles.Length]; // Send all triangles every time
-            Vector3[] chunkNormals = new Vector3[endIndex - startIndex];
-
-            System.Array.Copy(meshFilter.mesh.vertices, startIndex, chunkVertices, 0, endIndex - startIndex);
-            System.Array.Copy(meshFilter.mesh.uv, startIndex, chunkUVs, 0, endIndex - startIndex);
-            System.Array.Copy(meshFilter.mesh.normals, startIndex, chunkNormals, 0, endIndex - startIndex);
-
-            photonView.RPC("UpdateMeshData", RpcTarget.Others, chunkVertices, chunkUVs, chunkTriangles, chunkNormals);
-
-            currentChunkIndex++;
-        }
-        else
-        {
-            CancelInvoke("UpdateTimer"); // Stop the repeating update if all chunks are sent
-        }
+        photonView.RPC("UpdateMeshData", RpcTarget.Others,
+            meshFilter.mesh.vertices,
+            meshFilter.mesh.uv,
+            meshFilter.mesh.triangles,
+            meshFilter.mesh.normals
+            );
     }
 
     [PunRPC]
     void UpdateMeshData(Vector3[] vertices, Vector2[] uv, int[] triangles, Vector3[] normals)
     {
+        Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
         {
             meshFilter.mesh = new Mesh();
         }
 
+        Debug.Log("vertices.Length = " + vertices.Length);
+
+        for (int i = 0; i < vertices.Length; i++)
+        {
+            Debug.Log("Adding vertex: " + vertices[i]);
+        }
         // Update the mesh on other clients
         meshFilter.mesh.vertices = vertices;
         meshFilter.mesh.uv = uv;
