@@ -2158,7 +2158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1090013e7b26c2a40b86b9775bf8ccc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PrefabName: 
+  PrefabName: SyncedMesh1
   _ownerID: -1
   ShowSyncedVariables: 0
   SyncedVariablesString: 
