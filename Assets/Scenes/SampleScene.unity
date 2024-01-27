@@ -1339,6 +1339,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1161258559}
   - component: {fileID: 1161258558}
+  - component: {fileID: 1161258560}
   m_Layer: 0
   m_Name: Photon Manager
   m_TagString: Untagged
@@ -1377,6 +1378,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1161258560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1161258557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d69897315757c49a5cfd07f51288ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectingScreen: {fileID: 1818814815}
 --- !u!1 &1210660379
 GameObject:
   m_ObjectHideFlags: 0
@@ -1949,6 +1963,11 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1818814815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2484a0070ceb33342a1f72bb883f6bdb, type: 3}
+  m_PrefabInstance: {fileID: 1884912353}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1861619888
 GameObject:
   m_ObjectHideFlags: 0
@@ -2119,7 +2138,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2484a0070ceb33342a1f72bb883f6bdb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
