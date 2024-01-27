@@ -144,7 +144,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         if (trianglesPosition < trianglesLength - 1)
         {
             loadingPanel.SetActive(true);
-            loadingSlider.value = trianglesPosition / trianglesLength;
+            loadingSlider.value = ((float)trianglesPosition) / ((float)trianglesLength);
         }
         else
         {
