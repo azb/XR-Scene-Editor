@@ -48,11 +48,12 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
                 if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
                 {
                     Invoke("UpdateTimer", .01f);
+                    return;
                 }
-            }
-            else
-            {
-                SendSetMeshToNull();
+                else
+                {
+                    SendSetMeshToNull();
+                }
                 Invoke("UpdateTimer", 1f);
             }
         }
@@ -74,6 +75,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
+        Debug.Log("SendMeshData trianglesPosition = " + trianglesPosition + " / " + meshFilter.mesh.triangles.Length);
         if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
         {
             int verticesLength = meshFilter.mesh.vertices.Length;
