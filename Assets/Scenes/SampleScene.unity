@@ -849,6 +849,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncedMeshPrefab: {fileID: 5430056133662214298, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
+  spawnPoint: {fileID: 308107892}
 --- !u!1 &58245157
 GameObject:
   m_ObjectHideFlags: 0
