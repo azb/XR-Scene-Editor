@@ -73,7 +73,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
         {
             int verticesLength = meshFilter.mesh.vertices.Length;
-            int trianglesLength = meshFilter.mesh.vertices.Length;
+            int trianglesLength = meshFilter.mesh.triangles.Length;
 
             if (verticesPosition < meshFilter.mesh.vertices.Length - 1)
             {
@@ -146,7 +146,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             meshFilter.mesh.triangles = new int[trianglesLength];
         }
 
-        Debug.Log("verticesPosition = " + verticesPosition + "\ntrianglesPosition = " + trianglesPosition);
+        Debug.Log("verticesPosition = " + verticesPosition + " / "+ verticesLength + "\ntrianglesPosition = " + trianglesPosition + " / "+ trianglesLength);
 
         // Update the mesh on other clients
         meshFilter.mesh.vertices[verticesPosition] = vertex;
