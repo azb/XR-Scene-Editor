@@ -22,7 +22,8 @@ public class MaterialSync : MonoBehaviourPun
 
     private void Update()
     {
-        if (!XRSettings.isDeviceActive) //(!photonView.IsMine)
+        //if on xr device don't push mesh updates to other clients
+        if (XRSettings.isDeviceActive) //(!photonView.IsMine)
             return;
         if (meshRenderer != null)
         {
