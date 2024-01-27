@@ -19,6 +19,8 @@ public class LoadingScreen : MonoBehaviourPunCallbacks
         {
             //Debug.LogError("Not connected to Photon. Make sure to join a room first.");
         }
+
+        InvokeRepeating("CheckPlayerCount", 2.0f, 2.0f);
     }
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
