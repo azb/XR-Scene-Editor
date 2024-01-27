@@ -11,21 +11,26 @@ public class MaterialSync : MonoBehaviourPun
     private void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
+        Invoke("UpdateTimer", 1f);
     }
 
-    void Update()
+    void UpdateTimer()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        // Make sure to own the PhotonView for the object
+        if (photonView.IsMine)
         {
-            // Make sure to own the PhotonView for the object
-            if (photonView.IsMine)
+            if (meshRenderer.material != null)
             {
-                // Call the method to send the material's texture over the network
-                Texture2D textureToSend = (Texture2D)meshRenderer.material.mainTexture;
-                byte[] textureData = Texture2DToByteArray(textureToSend);
-                SendMaterialTexture(textureData);
+                if (meshRenderer.material.mainTexture != null)
+                {
+                    // Call the method to send the material's texture over the network
+                    Texture2D textureToSend = (Texture2D)meshRenderer.material.mainTexture;
+                    byte[] textureData = Texture2DToByteArray(textureToSend);
+                    SendMaterialTexture(textureData);
+                }
             }
         }
+        Invoke("UpdateTimer", 1f);
     }
 
     void SendMaterialTexture(byte[] textureData)

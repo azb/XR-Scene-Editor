@@ -18,33 +18,32 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             // Enable mesh modifications only for the owner
             meshFilter.mesh.MarkDynamic();
         }
+        Invoke("UpdateTimer", 1f);
     }
 
-    void Update()
+    void UpdateTimer()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (meshFilter.mesh != null)
         {
-            if (meshFilter.mesh != null)
+            if (photonView.IsMine)
             {
-                if (photonView.IsMine)
-                {
-                    // Modify mesh data locally
-                    // For example, you can deform the mesh based on user input
-                    // You can modify vertices, UVs, etc.
-                    // ...
+                // Modify mesh data locally
+                // For example, you can deform the mesh based on user input
+                // You can modify vertices, UVs, etc.
+                // ...
 
-                    // Call the method to send updates over the network
-                    SendMeshData();
-                }
+                // Call the method to send updates over the network
+                SendMeshData();
             }
         }
+        Invoke("UpdateTimer", 1f);
     }
 
     void SendMeshData()
     {
-        photonView.RPC("UpdateMeshData", RpcTarget.Others, 
-            meshFilter.mesh.vertices, 
-            meshFilter.mesh.uv, 
+        photonView.RPC("UpdateMeshData", RpcTarget.Others,
+            meshFilter.mesh.vertices,
+            meshFilter.mesh.uv,
             meshFilter.mesh.triangles,
             meshFilter.mesh.normals
             );
@@ -61,9 +60,9 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
         Debug.Log("vertices.Length = " + vertices.Length);
 
-        for (int i = 0 ; i < vertices.Length ; i++)
+        for (int i = 0; i < vertices.Length; i++)
         {
-            Debug.Log("Adding vertex: "+ vertices[i]);
+            Debug.Log("Adding vertex: " + vertices[i]);
         }
         // Update the mesh on other clients
         meshFilter.mesh.vertices = vertices;
