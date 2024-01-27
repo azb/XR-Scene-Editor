@@ -48,7 +48,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
                 // ...
 
                 // Call the method to send updates over the network
-                if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
+                if (trianglesPosition < meshFilter.mesh.triangles.Length)
                 {
                     SendMeshData();
                     Invoke("UpdateTimer", .01f);
