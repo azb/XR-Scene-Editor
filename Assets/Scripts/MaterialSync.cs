@@ -23,18 +23,19 @@ public class MaterialSync : MonoBehaviourPun
     {
         if (!photonView.IsMine)
             return;
-        if (meshRenderer != null
-            && meshRenderer.sharedMaterial != null
-            )
+        if (meshRenderer != null)
         {
-            if (meshRenderer.sharedMaterial != previousMaterial
-                || meshRenderer.sharedMaterial.mainTexture != previousTexture)
-            {
-                previousMaterial = meshRenderer.sharedMaterial;
-                previousTexture = meshRenderer.sharedMaterial.mainTexture;
-                Debug.Log("Updating material");
-                UpdateTimer();
-            }
+            //if (meshRenderer.sharedMaterial != null)
+            //{
+                if (meshRenderer.sharedMaterial != previousMaterial)
+                    //|| meshRenderer.sharedMaterial.mainTexture != previousTexture)
+                {
+                    previousMaterial = meshRenderer.sharedMaterial;
+                    previousTexture = meshRenderer.sharedMaterial.mainTexture;
+                    Debug.Log("Updating material");
+                    UpdateTimer();
+                }
+            //}
         }
     }
 
