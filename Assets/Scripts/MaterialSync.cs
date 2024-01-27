@@ -8,12 +8,16 @@ public class MaterialSync : MonoBehaviourPun
     [SerializeField]
     MeshRenderer meshRenderer;
     public Shader shader;
+    MeshSync meshSync;
 
     Material previousMaterial;
     Texture previousTexture;
+    bool allowDownloadMesh;
 
     private void Start()
     {
+        meshSync = GetComponent<MeshSync>();
+        allowDownloadMesh = meshSync.allowDownloadMesh;
         previousMaterial = null;
         previousTexture = null;
         meshRenderer = GetComponent<MeshRenderer>();
@@ -23,7 +27,7 @@ public class MaterialSync : MonoBehaviourPun
     private void Update()
     {
         //if on xr device don't push mesh updates to other clients
-        if (XRSettings.isDeviceActive) //(!photonView.IsMine)
+        if (!allowDownloadMesh && XRSettings.isDeviceActive) //(!photonView.IsMine)
             return;
         if (meshRenderer != null)
         {
