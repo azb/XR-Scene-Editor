@@ -13,13 +13,15 @@ public class MaterialSync : MonoBehaviourPun
 
     private void Start()
     {
+        previousMaterial = null;
+        previousTexture = null;
         meshRenderer = GetComponent<MeshRenderer>();
         //Invoke("UpdateTimer", 1f);
     }
 
     private void Update()
     {
-        if (meshRenderer.sharedMaterial != previousMaterial
+        if (meshRenderer != null && meshRenderer.sharedMaterial != previousMaterial
             || meshRenderer.sharedMaterial.mainTexture != previousTexture)
         {
             previousMaterial = meshRenderer.sharedMaterial;
