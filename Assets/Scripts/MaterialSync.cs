@@ -31,7 +31,7 @@ public class MaterialSync : MonoBehaviourPun
                     //|| meshRenderer.sharedMaterial.mainTexture != previousTexture)
                 {
                     previousMaterial = meshRenderer.sharedMaterial;
-                    previousTexture = meshRenderer.sharedMaterial.mainTexture;
+                    //previousTexture = meshRenderer.sharedMaterial.mainTexture;
                     Debug.Log("Updating material");
                     UpdateTimer();
                 }
