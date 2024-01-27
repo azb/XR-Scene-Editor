@@ -132,6 +132,8 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
     int[] triangleBuffer;
     Vector3[] normalBuffer;
 
+    public bool allowDownloadMesh;
+
     [PunRPC]
     void UpdateMeshData(
         Vector3 vertex,
@@ -155,7 +157,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         }
 
         //if on pc don't push mesh updates to other clients
-        if (!XRSettings.isDeviceActive)  //if (photonView.IsMine)
+        if (!XRSettings.isDeviceActive || allowDownloadMesh)  //if (photonView.IsMine)
             return;
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
