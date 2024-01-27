@@ -18,7 +18,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             // Enable mesh modifications only for the owner
             meshFilter.mesh.MarkDynamic();
         }
-        Invoke("UpdateTimer", 1f);
+        Invoke("UpdateTimer", .1f);
     }
 
     private void Update()
@@ -34,21 +34,24 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void UpdateTimer()
     {
-        if (meshFilter.mesh != null)
+        if (photonView.IsMine)
         {
-            // Modify mesh data locally
-            // For example, you can deform the mesh based on user input
-            // You can modify vertices, UVs, etc.
-            // ...
+            if (meshFilter.mesh != null)
+            {
+                // Modify mesh data locally
+                // For example, you can deform the mesh based on user input
+                // You can modify vertices, UVs, etc.
+                // ...
 
-            // Call the method to send updates over the network
-            SendMeshData();
+                // Call the method to send updates over the network
+                SendMeshData();
+            }
+            else
+            {
+                SendSetMeshToNull();
+            }
         }
-        else
-        {
-            SendSetMeshToNull();
-        }
-        Invoke("UpdateTimer", 1f);
+        Invoke("UpdateTimer", .1f);
     }
 
     void SendSetMeshToNull()
@@ -123,11 +126,13 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
         {
+            Debug.Log("Creating new mesh because current one is null");
             meshFilter.mesh = new Mesh();
         }
 
         if (meshFilter.mesh.vertices == null || meshFilter.mesh.vertices.Length != verticesLength)
         {
+            Debug.Log("Creating new mesh vertices because current one is null");
             meshFilter.mesh.vertices = new Vector3[verticesLength];
             meshFilter.mesh.uv = new Vector2[verticesLength];
             meshFilter.mesh.normals = new Vector3[verticesLength];
@@ -135,6 +140,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
         if (meshFilter.mesh.triangles == null || meshFilter.mesh.triangles.Length != trianglesLength)
         {
+            Debug.Log("Creating new mesh triangles because current one is null");
             meshFilter.mesh.triangles = new int[trianglesLength];
         }
 
