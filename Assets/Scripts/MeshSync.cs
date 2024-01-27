@@ -50,13 +50,13 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
                     Invoke("UpdateTimer", .01f);
                     return;
                 }
-                else
-                {
-                    SendSetMeshToNull();
-                }
-                Invoke("UpdateTimer", 1f);
+            }
+            else
+            {
+                SendSetMeshToNull();
             }
         }
+        Invoke("UpdateTimer", 1f);
     }
 
     void SendSetMeshToNull()
