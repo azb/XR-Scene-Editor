@@ -157,7 +157,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         }
 
         //if on pc don't push mesh updates to other clients
-        if (!XRSettings.isDeviceActive || allowDownloadMesh)  //if (photonView.IsMine)
+        if (!allowDownloadMesh && !XRSettings.isDeviceActive)  //if (photonView.IsMine)
             return;
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
