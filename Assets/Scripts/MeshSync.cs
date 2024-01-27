@@ -70,39 +70,43 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
-        if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
+        for (int i = 0; i < 3; i++)
         {
-            int verticesLength = meshFilter.mesh.vertices.Length;
-            int trianglesLength = meshFilter.mesh.triangles.Length;
+            if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
+            {
+                int verticesLength = meshFilter.mesh.vertices.Length;
+                int trianglesLength = meshFilter.mesh.triangles.Length;
 
-            if (verticesPosition < meshFilter.mesh.vertices.Length - 1)
-            {
-                verticesPosition++;
-            }
-            else
-            {
-                verticesPosition = 0;
-            }
+                if (verticesPosition < meshFilter.mesh.vertices.Length - 1)
+                {
+                    verticesPosition++;
+                }
+                else
+                {
+                    verticesPosition = 0;
+                }
 
-            if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
-            {
-                trianglesPosition++;
-            }
-            else
-            {
-                trianglesPosition = 0;
-            }
+                if (trianglesPosition < meshFilter.mesh.triangles.Length - 1)
+                {
+                    trianglesPosition++;
+                }
+                else
+                {
+                    trianglesPosition = 0;
+                }
 
-            photonView.RPC("UpdateMeshData", RpcTarget.Others,
-                meshFilter.mesh.vertices[verticesPosition],
-                meshFilter.mesh.uv[verticesPosition],
-                meshFilter.mesh.triangles[trianglesPosition],
-                meshFilter.mesh.normals[verticesPosition],
-                verticesPosition,
-                trianglesPosition,
-                verticesLength,
-                trianglesLength
-                );
+                photonView.RPC("UpdateMeshData", RpcTarget.Others,
+                    meshFilter.mesh.vertices[verticesPosition],
+                    meshFilter.mesh.uv[verticesPosition],
+                    meshFilter.mesh.triangles[trianglesPosition],
+                    meshFilter.mesh.normals[verticesPosition],
+                    verticesPosition,
+                    trianglesPosition,
+                    verticesLength,
+                    trianglesLength
+                    );
+
+            }
         }
 
         Debug.Log("meshFilter.mesh.vertices.Length = " + meshFilter.mesh.vertices.Length);
@@ -156,7 +160,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
             triangleBuffer = new int[trianglesLength];
         }
 
-        Debug.Log("verticesPosition = " + verticesPosition + " / "+ verticesLength + "\ntrianglesPosition = " + trianglesPosition + " / "+ trianglesLength);
+        Debug.Log("verticesPosition = " + verticesPosition + " / " + verticesLength + "\ntrianglesPosition = " + trianglesPosition + " / " + trianglesLength);
 
         // Update the mesh on other clients
         vertexBuffer[verticesPosition] = vertex;
