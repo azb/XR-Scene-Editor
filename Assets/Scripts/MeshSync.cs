@@ -123,6 +123,8 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
         int trianglesLength
     )
     {
+        if (photonView.IsMine)
+            return;
         Debug.Log("PunRPC UpdateMeshData called");
         if (meshFilter.mesh == null)
         {
