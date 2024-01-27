@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using UnityEngine.XR;
 
 public class MeshSync : MonoBehaviourPun, IPunObservable
 {
@@ -37,7 +38,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void UpdateTimer()
     {
-        if (photonView.IsMine)
+        if (!XRSettings.isDeviceActive) //photonView.IsMine)
         {
             if (meshFilter.mesh != null)
             {
@@ -75,6 +76,8 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     int verticesPosition = 0;
     int trianglesPosition = 0;
+
+    int previousVertexCount; 
 
     void SendMeshData()
     {

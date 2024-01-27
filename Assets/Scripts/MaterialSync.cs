@@ -1,6 +1,7 @@
 using UnityEngine;
 using Photon.Pun;
 using System.IO;
+using UnityEngine.XR;
 
 public class MaterialSync : MonoBehaviourPun
 {
@@ -21,7 +22,7 @@ public class MaterialSync : MonoBehaviourPun
 
     private void Update()
     {
-        if (!photonView.IsMine)
+        if (!XRSettings.isDeviceActive) //(!photonView.IsMine)
             return;
         if (meshRenderer != null)
         {
