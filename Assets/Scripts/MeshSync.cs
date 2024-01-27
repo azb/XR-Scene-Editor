@@ -81,7 +81,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void SendMeshData()
     {
-        Debug.Log("SendMeshData trianglesPosition = " + (trianglesPosition+1) + " / " + meshFilter.mesh.triangles.Length);
+        Debug.Log("SendMeshData trianglesPosition = " + (trianglesPosition) + " / " + (meshFilter.mesh.triangles.Length-1));
         if (meshFilter.mesh != null && meshFilter.mesh.vertices.Length > 0)
         {
             int verticesLength = meshFilter.mesh.vertices.Length;
