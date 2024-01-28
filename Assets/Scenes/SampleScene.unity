@@ -7162,7 +7162,7 @@ GameObject:
   - component: {fileID: 693189210}
   m_Layer: 0
   m_Name: PC Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21852,6 +21852,14 @@ PrefabInstance:
     - target: {fileID: 2682027548826260955, guid: 437fd8685e908c44791e6fa5ee77d3ba, type: 3}
       propertyPath: m_Size.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142243622396933594, guid: 437fd8685e908c44791e6fa5ee77d3ba, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4142243622396933594, guid: 437fd8685e908c44791e6fa5ee77d3ba, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6040645295815190885, guid: 437fd8685e908c44791e6fa5ee77d3ba, type: 3}
       propertyPath: m_Mesh
