@@ -1897,7 +1897,7 @@ Transform:
   m_GameObject: {fileID: 172855486}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.214, z: 0.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3013,7 +3013,7 @@ MonoBehaviour:
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
   profilerTcpPort: 32419
-  expandMixedRealityCapturePropertySheet: 0
+  expandMixedRealityCapturePropertySheet: 1
   enableMixedReality: 0
   compositionMethod: 0
   extraHiddenLayers:
@@ -6310,7 +6310,7 @@ MonoBehaviour:
   UI: {fileID: 1861619891}
   CenterEyeAnchor: {fileID: 2087554928}
   PCCamera: {fileID: 693189211}
-  mode: 1
+  mode: 0
 --- !u!4 &601022189
 Transform:
   m_ObjectHideFlags: 0
@@ -8484,7 +8484,7 @@ MonoBehaviour:
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
   _pointableElement: {fileID: 0}
-  _rigidbody: {fileID: 0}
+  _rigidbody: {fileID: 782497457}
   _physicsGrabbable: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
   _scoringModifier:
@@ -13986,7 +13986,7 @@ Transform:
   m_GameObject: {fileID: 1349576868}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.214, z: 0.61}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21369,6 +21369,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1028128349291243203, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5495902117074765545, guid: c578a29753ee6cc4ba82b1f80712d52f, type: 3}
+    - target: {fileID: 1809988745788599493, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3559290918359558570, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
       propertyPath: sceneViewId
       value: 1
@@ -21376,6 +21384,10 @@ PrefabInstance:
     - target: {fileID: 5430056133662214298, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
       propertyPath: m_Name
       value: Synced Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 6432417066205964466, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
+      propertyPath: allowDownloadMesh
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8962382177756358880, guid: 964b6c93e3c1d93499bfb9160fa05828, type: 3}
       propertyPath: m_LocalScale.x
