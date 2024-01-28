@@ -7,6 +7,7 @@ public class SceneEditXRUI : MonoBehaviour
 {
     public GameObject syncedMeshPrefab;
     public Transform spawnPoint;
+    public Transform GameBoard;
 
     // Start is called before the first frame update
     void Start()
