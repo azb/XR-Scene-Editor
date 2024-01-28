@@ -355,6 +355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadingPanel: {fileID: 7259739679958469867}
   loadingSlider: {fileID: 2244499144837447466}
+  allowDownloadMesh: 0
 --- !u!114 &6773775297116258285
 MonoBehaviour:
   m_ObjectHideFlags: 0
