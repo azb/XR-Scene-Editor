@@ -23,8 +23,8 @@ public class TransformSync : MonoBehaviourPun, IPunObservable
         if (!photonView.IsMine)
         {
             // Smoothly lerp towards the network position and rotation
-            transform.position = Vector3.Lerp(transform.position, networkPosition, Time.deltaTime * 10f);
-            transform.rotation = Quaternion.Lerp(transform.rotation, networkRotation, Time.deltaTime * 10f);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, networkPosition, Time.deltaTime * 10f);
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, networkRotation, Time.deltaTime * 10f);
             transform.localScale = Vector3.Lerp(transform.localScale, networkScale, Time.deltaTime * 10f);
         }
     }
@@ -37,8 +37,8 @@ public class TransformSync : MonoBehaviourPun, IPunObservable
         {
             // This client owns the PhotonView
             // Send data to others (networkPosition, networkRotation, etc.)
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
+            stream.SendNext(transform.localPosition);
+            stream.SendNext(transform.localRotation);
             stream.SendNext(transform.localScale);
         }
         else
