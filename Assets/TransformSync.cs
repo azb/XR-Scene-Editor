@@ -19,6 +19,7 @@ public class TransformSync : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
+        Debug.Log("getshere1");
         if (!photonView.IsMine)
         {
             // Smoothly lerp towards the network position and rotation
