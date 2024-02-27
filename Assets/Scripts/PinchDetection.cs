@@ -1,11 +1,9 @@
 
-using Oculus.Interaction;
 using Photon.Pun;
 using UnityEngine;
 
 public class PinchDetection : MonoBehaviour
 {
-    public OVRHand hand;
     public Transform GameBoard;
     void Start()
     {
@@ -13,7 +11,7 @@ public class PinchDetection : MonoBehaviour
     }
 
     void Update()
-    {
+    {/*
         if (hand.GetFingerIsPinching(OVRHand.HandFinger.Index))
         {
             // Pinch event detected
@@ -46,10 +44,12 @@ public class PinchDetection : MonoBehaviour
 
             // Add your pinch-related actions or interactions here
         }
+        */
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        /*
         Debug.Log("OnTriggerEnter for gameObject " + gameObject.name + " collided with: " + other.name);
         if (gameObject.activeInHierarchy)
         {
@@ -76,5 +76,6 @@ public class PinchDetection : MonoBehaviour
         {
             Debug.Log("Game object is not active in the hierarchy " + gameObject.name);
         }
+        */
     }
 }
