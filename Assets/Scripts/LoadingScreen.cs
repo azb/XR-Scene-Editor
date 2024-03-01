@@ -2,12 +2,14 @@
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoadingScreen : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private GameObject connectingScreen;
-    public Text connectionStatusLabel;
+    //public Text connectionStatusLabel;
+    public TextMeshProUGUI connectionStatusLabel;
 
     void Start()
     {
