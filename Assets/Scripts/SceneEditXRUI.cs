@@ -8,6 +8,7 @@ public class SceneEditXRUI : MonoBehaviour
     public GameObject syncedMeshPrefab;
     public Transform spawnPoint;
     public Transform GameBoard;
+    public GameObject DebugPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,29 @@ public class SceneEditXRUI : MonoBehaviour
 
     public void CreateSyncedMesh()
     {
+        Debug.Log("CreateSyncedMesh");
         PhotonNetwork.Instantiate(syncedMeshPrefab.name, spawnPoint.position, Quaternion.identity);
     }
+
+    public void ClearButtonPressed()
+    {
+        Debug.Log("ClearButtonPressed");
+
+    }
+    public void CreateButtonPressed()
+    {
+        Debug.Log("CreateButtonPressed");
+
+    }
+    public void NoteButtonPressed()
+    {
+        Debug.Log("NoteButtonPressed");
+
+    }
+    public void DebugLogButtonPressed()
+    {
+        Debug.Log("DebugLogButtonPressed");
+        DebugPanel.SetActive(!DebugPanel.activeSelf);
+    }
+
 }
