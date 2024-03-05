@@ -38,7 +38,7 @@ public class MeshSync : MonoBehaviourPun, IPunObservable
 
     void UpdateTimer()
     {
-        if (!XRSettings.isDeviceActive) //photonView.IsMine)
+        if (photonView.IsMine) //!XRSettings.isDeviceActive) //photonView.IsMine)
         {
             if (meshFilter.mesh != null)
             {
